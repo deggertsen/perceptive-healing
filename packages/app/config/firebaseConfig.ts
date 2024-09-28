@@ -1,10 +1,8 @@
 // packages/app/firebaseConfig.ts
-import { initializeApp, ReactNativeFirebase } from '@react-native-firebase/app'
+import { getApp } from '@react-native-firebase/app'
 import auth from '@react-native-firebase/auth'
 
-import { firebaseConfig } from './env'
-
-const firebaseApp = initializeApp(firebaseConfig as ReactNativeFirebase.FirebaseAppOptions)
+const firebaseApp = getApp()
 
 const firebaseAuth = auth()
 
