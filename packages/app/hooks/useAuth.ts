@@ -10,14 +10,24 @@ export function useAuth() {
     return unsubscribe
   }, [])
 
+  async function signIn(email: string, password: string) {
+    try {
+      await firebaseAuth.signInWithEmailAndPassword(email, password)
+      console.info('Successfully signed in!')
+    } catch (error) {
+      console.error('Error signing in:', error)
+      throw error
+    }
+  }
+
   async function signOut() {
     try {
       await firebaseAuth.signOut()
-      console.log('Successfully signed out!')
+      console.info('Successfully signed out!')
     } catch (error) {
       console.error('Error signing out:', error)
     }
   }
 
-  return { user, signOut }
+  return { user, signIn, signOut }
 }
