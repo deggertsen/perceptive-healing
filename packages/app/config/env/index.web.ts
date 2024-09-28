@@ -1,6 +1,6 @@
-import { ReactNativeFirebase } from '@react-native-firebase/app'
+import { FirebaseOptions } from 'firebase/app'
 
-export const firebaseConfig: ReactNativeFirebase.FirebaseAppOptions = {
+export const firebaseConfig: FirebaseOptions = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY ?? '',
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN ?? '',
   projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID ?? '',

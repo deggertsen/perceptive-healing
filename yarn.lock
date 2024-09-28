@@ -7396,6 +7396,7 @@ __metadata:
     burnt: "npm:^0.12.2"
     expo-constants: "npm:~16.0.2"
     expo-linking: "npm:~6.3.1"
+    firebase: "npm:^10.13.2"
     react-native-safe-area-context: "npm:4.10.4"
     solito: "npm:^4.2.2"
   languageName: unknown
@@ -11202,7 +11203,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"firebase@npm:10.13.2":
+"firebase@npm:10.13.2, firebase@npm:^10.13.2":
   version: 10.13.2
   resolution: "firebase@npm:10.13.2"
   dependencies:
