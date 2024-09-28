@@ -11,7 +11,7 @@ import {
   XStack,
   YStack,
 } from '@my/ui'
-import { ChevronDown, ChevronUp, X } from '@tamagui/lucide-icons'
+import { ChevronDown, ChevronUp } from '@tamagui/lucide-icons'
 import { useState } from 'react'
 import { Platform } from 'react-native'
 import { useLink } from 'solito/navigation'
@@ -20,6 +20,14 @@ export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
   const linkTarget = pagesMode ? '/pages-example-user' : '/user'
   const linkProps = useLink({
     href: `${linkTarget}/nate`,
+  })
+
+  const signInLink = useLink({
+    href: '/sign-in',
+  })
+
+  const signUpLink = useLink({
+    href: '/sign-up',
   })
 
   return (
@@ -41,7 +49,7 @@ export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
         )}
       </XStack>
 
-      <YStack gap="$4">
+      <YStack gap="$4" ai="center">
         <H1 ta="center" col="$color12">
           Welcome to Tamagui.
         </H1>
@@ -56,6 +64,11 @@ export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
       </YStack>
 
       <Button {...linkProps}>Link to user</Button>
+
+      <XStack gap="$4">
+        <Button {...signInLink}>Sign In</Button>
+        <Button {...signUpLink}>Sign Up</Button>
+      </XStack>
 
       <SheetDemo />
     </YStack>
