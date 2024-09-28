@@ -3196,6 +3196,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@my/config@workspace:packages/config"
   dependencies:
+    "@supabase/supabase-js": "npm:^2.45.4"
     "@tamagui/animations-react-native": "npm:^1.112.3"
     "@tamagui/build": "npm:^1.112.3"
     "@tamagui/font-inter": "npm:1.112.2"

@@ -16,6 +16,7 @@
     "watch": "tamagui-build --skip-types --watch"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.45.4",
     "@tamagui/animations-react-native": "^1.112.3",
     "@tamagui/font-inter": "1.112.2",
     "@tamagui/react-native-media-driver": "^1.112.3",
