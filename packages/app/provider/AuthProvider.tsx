@@ -6,14 +6,19 @@ type AuthContextType = {
   user: FirebaseAuthTypes.User | null
   signIn: (email: string, password: string) => Promise<void>
   signOut: () => Promise<void>
+  createUserWithEmailAndPassword: (email: string, password: string) => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { user, signIn, signOut } = useAuth()
+  const { user, signIn, signOut, createUserWithEmailAndPassword } = useAuth()
 
-  return <AuthContext.Provider value={{ user, signIn, signOut }}>{children}</AuthContext.Provider>
+  return (
+    <AuthContext.Provider value={{ user, signIn, signOut, createUserWithEmailAndPassword }}>
+      {children}
+    </AuthContext.Provider>
+  )
 }
 
 export const useAuthContext = () => {
