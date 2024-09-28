@@ -1,5 +1,6 @@
 {
-  "name": "perceptive-healing",
+  "name": "perceptivehealing",
+  "version": "1.0.0",
   "private": true,
   "workspaces": [
     "./apps/*",
