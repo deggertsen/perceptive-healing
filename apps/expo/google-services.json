@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "717135920068",
+    "project_id": "soap-notes-d1cea",
+    "storage_bucket": "soap-notes-d1cea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:717135920068:android:15e949ec22afef011f0291",
+        "android_client_info": {
+          "package_name": "com.bodywork.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPsp6B-ZlSgRvE88CkIzGPXiruXaShP8c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
