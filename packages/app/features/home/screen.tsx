@@ -50,14 +50,11 @@ export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
 
       <YStack gap="$4" ai="center">
         <H1 ta="center" col="$color12">
-          Welcome to Tamagui.
+          Body Work SOAP Notes
         </H1>
         <Paragraph col="$color10" ta="center">
-          Here's a basic starter to show navigating from one screen to another.
-        </Paragraph>
-        <Separator />
-        <Paragraph ta="center">
-          This screen uses the same code on Next.js and React Native.
+          An app to help body work practitioners with client intake, SOAP notes, and keeping track
+          of client progress over time.
         </Paragraph>
         <Separator />
       </YStack>
