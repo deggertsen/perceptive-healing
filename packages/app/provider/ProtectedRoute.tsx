@@ -12,7 +12,7 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
 
   React.useEffect(() => {
     if (user === null) {
-      router.replace('/sign-in')
+      router.replace('/user/sign-in')
     }
   }, [user, router])
 

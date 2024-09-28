@@ -68,7 +68,7 @@ export function SignInScreen() {
       </Button>
       <XStack>
         <Paragraph ta="center">Don't have an account? </Paragraph>
-        <Button onPress={() => router.push('/sign-up')}>Sign Up</Button>
+        <Button onPress={() => router.push('/user/sign-up')}>Sign Up</Button>
       </XStack>
     </YStack>
   )

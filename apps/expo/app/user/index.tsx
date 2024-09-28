@@ -15,7 +15,7 @@ export default function Screen() {
           gestureDirection: 'horizontal',
         }}
       />
-      <UserDetailScreen id={id as string} />
+      <UserDetailScreen />
     </>
   )
 }

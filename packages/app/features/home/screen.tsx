@@ -17,17 +17,16 @@ import { Platform } from 'react-native'
 import { useLink } from 'solito/navigation'
 
 export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
-  const linkTarget = pagesMode ? '/pages-example-user' : '/user'
   const linkProps = useLink({
-    href: `${linkTarget}/nate`,
+    href: `/user`,
   })
 
   const signInLink = useLink({
-    href: '/sign-in',
+    href: '/user/sign-in',
   })
 
   const signUpLink = useLink({
-    href: '/sign-up',
+    href: '/user/sign-up',
   })
 
   return (
