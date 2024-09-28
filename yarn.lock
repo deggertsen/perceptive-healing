@@ -3202,6 +3202,7 @@ __metadata:
     "@tamagui/react-native-media-driver": "npm:^1.112.3"
     "@tamagui/shorthands": "npm:^1.112.3"
     "@tamagui/themes": "npm:^1.112.3"
+    next: "npm:^14.2.13"
     tamagui: "npm:^1.112.3"
   languageName: unknown
   linkType: soft
@@ -7380,6 +7381,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "app@workspace:packages/app"
   dependencies:
+    "@my/config": "npm:0.0.1"
     "@my/ui": "npm:0.0.1"
     "@react-native-firebase/app": "npm:^21.0.0"
     "@react-native-firebase/auth": "npm:^21.0.0"
@@ -14346,7 +14348,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next@npm:14.2.13":
+"next@npm:14.2.13, next@npm:^14.2.13":
   version: 14.2.13
   resolution: "next@npm:14.2.13"
   dependencies:

@@ -7,6 +7,7 @@
     "./packages/*"
   ],
   "scripts": {
+    "env:build": "yarn dlx dotenv-vault build -y",
     "env:pull": "npx dotenv-vault@latest pull && yarn dlx dotenv-vault pull production -y",
     "env:push": "npx dotenv-vault@latest push",
     "native": "cd apps/expo && yarn start",

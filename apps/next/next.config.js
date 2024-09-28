@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const { withTamagui } = require('@tamagui/next-plugin')
 const { join } = require('path')
+require('dotenv').config({ path: '../../.env' })
 
 const boolVals = {
   true: true,
@@ -9,27 +10,6 @@ const boolVals = {
 
 const disableExtraction =
   boolVals[process.env.DISABLE_EXTRACTION] ?? process.env.NODE_ENV === 'development'
-
-console.log(`
-
-Welcome to Tamagui!
-
-You can update this monorepo to the latest Tamagui release just by running:
-
-yarn upgrade:tamagui
-
-We've set up a few things for you.
-
-See the "excludeReactNativeWebExports" setting in next.config.js, which omits these
-from the bundle: Switch, ProgressBar Picker, CheckBox, Touchable. To save more,
-you can add ones you don't need like: AnimatedFlatList, FlatList, SectionList,
-VirtualizedList, VirtualizedSectionList.
-
-🐣
-
-Remove this log in next.config.js.
-
-`)
 
 const plugins = [
   withTamagui({
@@ -70,6 +50,15 @@ module.exports = function () {
     ],
     experimental: {
       scrollRestoration: true,
+    },
+    env: {
+      FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
+      FIREBASE_AUTH_DOMAIN: process.env.FIREBASE_AUTH_DOMAIN,
+      FIREBASE_PROJECT_ID: process.env.FIREBASE_PROJECT_ID,
+      FIREBASE_STORAGE_BUCKET: process.env.FIREBASE_STORAGE_BUCKET,
+      NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: process.env.FIREBASE_MESSAGING_SENDER_ID,
+      FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
+      FIREBASE_MEASUREMENT_ID: process.env.FIREBASE_MEASUREMENT_ID,
     },
   }
 

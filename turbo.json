@@ -1,9 +1,9 @@
 {
   "$schema": "https://turborepo.org/schema.json",
-  "globalEnv": ["DISABLE_EXTRACTION", "NODE_ENV", "EAS_BUILD_PLATFORM"],
-  "pipeline": {
+  "globalDependencies": [".env.vault"],
+  "globalEnv": ["DOTENV_KEY"],
+  "tasks": {
     "build": {
-      "env": ["DISABLE_EXTRACTION", "NODE_ENV", "EAS_BUILD_PLATFORM"],
       "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**", "build/**", "node_modules/.cache/metro/**"]
     },

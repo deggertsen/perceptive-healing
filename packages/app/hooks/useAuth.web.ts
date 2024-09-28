@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { FirebaseOptions, initializeApp } from 'firebase/app'
-import { firebaseConfig } from '../config/env'
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -8,6 +7,7 @@ import {
   User,
   createUserWithEmailAndPassword as firebaseCreateUserWithEmailAndPassword,
 } from 'firebase/auth'
+import { firebaseConfig } from '@my/config'
 
 const firebaseApp = initializeApp(firebaseConfig as FirebaseOptions)
 const firebaseAuth = getAuth(firebaseApp)
