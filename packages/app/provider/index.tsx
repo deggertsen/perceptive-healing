@@ -8,6 +8,7 @@ import {
   isWeb,
 } from '@my/ui'
 import { ToastViewport } from './ToastViewport'
+import { AuthProvider } from './AuthProvider'
 
 export function Provider({ children, ...rest }: Omit<TamaguiProviderProps, 'config'>) {
   const colorScheme = useColorScheme()
@@ -19,7 +20,7 @@ export function Provider({ children, ...rest }: Omit<TamaguiProviderProps, 'conf
       {...rest}
     >
       <ToastProvider swipeDirection="horizontal" duration={6000} native={isWeb ? [] : ['mobile']}>
-        {children}
+        <AuthProvider>{children}</AuthProvider>
         <CustomToast />
         <ToastViewport />
       </ToastProvider>
