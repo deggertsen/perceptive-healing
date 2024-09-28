@@ -46,3 +46,8 @@ thumbs.db
 
 # turbo build log
 **/.turbo/*
+
+.env*
+.flaskenv*
+!.env.project
+!.env.vault
