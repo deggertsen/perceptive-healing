@@ -41,7 +41,7 @@ export function SignInScreen() {
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
-        keyboardType="email-address"
+        inputMode="email"
         autoCapitalize="none"
         autoCorrect={false}
         width={300}
