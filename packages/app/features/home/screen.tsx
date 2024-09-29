@@ -12,11 +12,13 @@ import {
   YStack,
 } from '@my/ui'
 import { ChevronDown, ChevronUp } from '@tamagui/lucide-icons'
+import { useAuthContext } from 'packages/app/provider/AuthProvider'
 import { useState } from 'react'
 import { Platform } from 'react-native'
 import { useLink } from 'solito/navigation'
 
 export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
+  const { user } = useAuthContext()
   const linkProps = useLink({
     href: `/user`,
   })
@@ -27,6 +29,10 @@ export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
 
   const signUpLink = useLink({
     href: '/user/sign-up',
+  })
+
+  const clientListLink = useLink({
+    href: '/client',
   })
 
   return (
@@ -61,10 +67,14 @@ export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
 
       <Button {...linkProps}>Link to user</Button>
 
-      <XStack gap="$4">
-        <Button {...signInLink}>Sign In</Button>
-        <Button {...signUpLink}>Sign Up</Button>
-      </XStack>
+      <Button {...clientListLink}>Client List</Button>
+
+      {user?.isAnonymous && (
+        <XStack gap="$4">
+          <Button {...signInLink}>Sign In</Button>
+          <Button {...signUpLink}>Sign Up</Button>
+        </XStack>
+      )}
 
       <SheetDemo />
     </YStack>
