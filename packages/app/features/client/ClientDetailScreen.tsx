@@ -1,14 +1,28 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Paragraph, YStack, XStack, H1, Input, Label, Spinner } from '@my/ui'
+import {
+  Button,
+  Paragraph,
+  YStack,
+  XStack,
+  H1,
+  Input,
+  Label,
+  Spinner,
+  Modal,
+  ModalClose,
+} from '@my/ui'
 import { supabase } from '@my/config'
 import { useRouter, useParams } from 'solito/navigation'
 import { Client } from './types'
+import { useAuthContext } from '../../provider/AuthProvider'
 
 export function ClientDetailScreen() {
+  const { user } = useAuthContext()
   const [client, setClient] = useState<Client | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [isEditing, setIsEditing] = useState(false)
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const router = useRouter()
   const { id } = useParams()
 
@@ -65,52 +79,91 @@ export function ClientDetailScreen() {
     }
   }
 
+  const handleDelete = async () => {
+    if (!client) return
+
+    try {
+      setLoading(true)
+      const { error } = await supabase
+        .from('clients')
+        .update({ deleted_at: new Date().toISOString() })
+        .eq('id', client.id)
+        .eq('user_id', user?.uid)
+
+      if (error) throw error
+      router.push('/client')
+    } catch (err: any) {
+      setError(err.message)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   if (loading) return <Spinner />
   if (error) return <Paragraph>{error}</Paragraph>
   if (!client) return <Paragraph>Client not found</Paragraph>
 
   return (
-    <YStack f={1} jc="flex-start" ai="stretch" p="$4" space>
-      <XStack jc="space-between" ai="center">
-        <H1>{isEditing ? 'Edit Client' : 'Client Details'}</H1>
-        <Button onPress={() => setIsEditing(!isEditing)}>{isEditing ? 'Cancel' : 'Edit'}</Button>
-      </XStack>
+    <>
+      <YStack f={1} jc="flex-start" ai="stretch" p="$4" gap="$4">
+        <XStack jc="space-between" ai="center">
+          <H1>{isEditing ? 'Edit Client' : 'Client Details'}</H1>
+          <Button onPress={() => setIsEditing(!isEditing)}>{isEditing ? 'Cancel' : 'Edit'}</Button>
+        </XStack>
 
-      <YStack space>
-        <Label htmlFor="name">Name</Label>
-        <Input
-          id="name"
-          value={client.name}
-          onChangeText={(value) => handleInputChange('name', value)}
-          editable={isEditing}
-        />
+        <YStack gap="$4">
+          <Label htmlFor="name">Name</Label>
+          <Input
+            id="name"
+            value={client.name}
+            onChangeText={(value) => handleInputChange('name', value)}
+            editable={isEditing}
+          />
 
-        <Label htmlFor="email">Email</Label>
-        <Input
-          id="email"
-          value={client.client_info.email}
-          onChangeText={(value) => handleInputChange('email', value)}
-          editable={isEditing}
-        />
+          <Label htmlFor="email">Email</Label>
+          <Input
+            id="email"
+            value={client.client_info.email}
+            onChangeText={(value) => handleInputChange('email', value)}
+            editable={isEditing}
+          />
 
-        <Label htmlFor="phone">Phone</Label>
-        <Input
-          id="phone"
-          value={client.client_info.phone}
-          onChangeText={(value) => handleInputChange('phone', value)}
-          editable={isEditing}
-        />
-      </YStack>
+          <Label htmlFor="phone">Phone</Label>
+          <Input
+            id="phone"
+            value={client.client_info.phone}
+            onChangeText={(value) => handleInputChange('phone', value)}
+            editable={isEditing}
+          />
+        </YStack>
 
-      {isEditing && (
-        <Button theme="active" onPress={handleUpdate}>
-          Save Changes
+        {isEditing && (
+          <Button theme="active" onPress={handleUpdate}>
+            Save Changes
+          </Button>
+        )}
+
+        <Button theme="alt1" onPress={() => router.push('/client')}>
+          Back to Client List
         </Button>
-      )}
 
-      <Button theme="alt1" onPress={() => router.push('/client')}>
-        Back to Client List
-      </Button>
-    </YStack>
+        <Button theme="danger" onPress={() => setIsDeleteModalOpen(true)}>
+          Delete Client
+        </Button>
+      </YStack>
+      <Modal open={isDeleteModalOpen} onOpenChange={setIsDeleteModalOpen} title="Confirm Deletion">
+        <YStack gap="$4">
+          <Paragraph>Are you sure you want to delete this client?</Paragraph>
+          <XStack gap="$4">
+            <ModalClose asChild>
+              <Button theme="alt1">Cancel</Button>
+            </ModalClose>
+            <Button theme="danger" onPress={handleDelete}>
+              Confirm Delete
+            </Button>
+          </XStack>
+        </YStack>
+      </Modal>
+    </>
   )
 }
