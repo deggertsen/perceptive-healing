@@ -1,5 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Paragraph, YStack, XStack, H1, ScrollView, Input, Sheet, Label } from '@my/ui'
+import {
+  Button,
+  Paragraph,
+  YStack,
+  XStack,
+  H1,
+  ScrollView,
+  Input,
+  Label,
+  Modal,
+  ModalClose,
+} from '@my/ui'
 import { supabase } from '@my/config'
 import { useRouter } from 'solito/navigation'
 import { Client } from './types'
@@ -91,54 +102,41 @@ export function ClientListScreen() {
         </ScrollView>
       )}
 
-      <Sheet
-        modal
-        open={isAddClientOpen}
-        onOpenChange={setIsAddClientOpen}
-        snapPoints={[50]}
-        dismissOnSnapToBottom
-        position={0}
-        zIndex={100_000}
-      >
-        <Sheet.Overlay />
-        <Sheet.Frame ai="center" jc="center">
-          <Sheet.Handle />
-          <YStack space="$4" maw={600} p="$4" ai="stretch">
-            <H1>Add New Client</H1>
-            <Label htmlFor="name">Name</Label>
-            <Input
-              id="name"
-              placeholder="Client Name"
-              value={newClientName}
-              onChangeText={setNewClientName}
-            />
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              placeholder="Email"
-              value={newClientEmail}
-              onChangeText={setNewClientEmail}
-              keyboardType="email-address"
-            />
-            <Label htmlFor="phone">Phone</Label>
-            <Input
-              id="phone"
-              placeholder="Phone"
-              value={newClientPhone}
-              onChangeText={setNewClientPhone}
-              keyboardType="phone-pad"
-            />
-            <XStack space>
-              <Button theme="alt1" onPress={() => setIsAddClientOpen(false)}>
-                Cancel
-              </Button>
-              <Button theme="active" onPress={handleAddClient}>
-                Add Client
-              </Button>
-            </XStack>
-          </YStack>
-        </Sheet.Frame>
-      </Sheet>
+      <Modal open={isAddClientOpen} onOpenChange={setIsAddClientOpen} title="Add New Client">
+        <YStack space="$4" maw={600} p="$4">
+          <Label htmlFor="name">Name</Label>
+          <Input
+            id="name"
+            placeholder="Client Name"
+            value={newClientName}
+            onChangeText={setNewClientName}
+          />
+          <Label htmlFor="email">Email</Label>
+          <Input
+            id="email"
+            placeholder="Email"
+            value={newClientEmail}
+            onChangeText={setNewClientEmail}
+            keyboardType="email-address"
+          />
+          <Label htmlFor="phone">Phone</Label>
+          <Input
+            id="phone"
+            placeholder="Phone"
+            value={newClientPhone}
+            onChangeText={setNewClientPhone}
+            keyboardType="phone-pad"
+          />
+          <XStack space>
+            <ModalClose asChild>
+              <Button theme="alt1">Cancel</Button>
+            </ModalClose>
+            <Button theme="active" onPress={handleAddClient}>
+              Add Client
+            </Button>
+          </XStack>
+        </YStack>
+      </Modal>
     </YStack>
   )
 }
