@@ -1,3 +1,5 @@
-import { Database } from '@my/config'
+import { Database, ClientInfo } from '@my/config'
 
-export type Client = Database['public']['Tables']['clients']['Row']
+export type Client = Database['public']['Tables']['clients']['Row'] & {
+  client_info: ClientInfo
+}

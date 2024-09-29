@@ -1,5 +1,10 @@
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[]
 
+export interface ClientInfo {
+  email: string
+  phone: string
+}
+
 export interface Database {
   public: {
     Tables: {
@@ -7,7 +12,7 @@ export interface Database {
         Row: {
           id: string
           name: string
-          client_info: Json
+          client_info: ClientInfo
           created_at: string
           updated_at: string
           edited_at: string | null
@@ -16,7 +21,7 @@ export interface Database {
         Insert: {
           id?: string
           name: string
-          client_info: Json
+          client_info: ClientInfo
           created_at?: string
           updated_at?: string
           edited_at?: string | null
@@ -25,7 +30,7 @@ export interface Database {
         Update: {
           id?: string
           name?: string
-          client_info?: Json
+          client_info?: ClientInfo
           created_at?: string
           updated_at?: string
           edited_at?: string | null
