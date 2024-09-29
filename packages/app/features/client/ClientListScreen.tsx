@@ -78,7 +78,7 @@ export function ClientListScreen() {
   }
 
   return (
-    <YStack f={1} jc="flex-start" ai="stretch" p="$4" space>
+    <YStack f={1} jc="flex-start" ai="stretch" p="$4" gap="$4">
       <H1>Clients</H1>
       <Button onPress={() => setIsAddClientOpen(true)}>Add Client</Button>
       {error && <Paragraph color="$red10">{error}</Paragraph>}
@@ -103,7 +103,7 @@ export function ClientListScreen() {
       )}
 
       <Modal open={isAddClientOpen} onOpenChange={setIsAddClientOpen} title="Add New Client">
-        <YStack space="$4" maw={600} p="$4">
+        <YStack gap="$4" maw={600} p="$4">
           <Label htmlFor="name">Name</Label>
           <Input
             id="name"
@@ -127,7 +127,7 @@ export function ClientListScreen() {
             onChangeText={setNewClientPhone}
             keyboardType="phone-pad"
           />
-          <XStack space>
+          <XStack gap="$2">
             <ModalClose asChild>
               <Button theme="alt1">Cancel</Button>
             </ModalClose>
