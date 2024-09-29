@@ -1,18 +1,8 @@
-import {
-  Button,
-  H1,
-  Paragraph,
-  Separator,
-  SwitchThemeButton,
-  SwitchRouterButton,
-  XStack,
-  YStack,
-} from '@my/ui'
+import { Button, H1, Paragraph, Separator, SwitchThemeButton, XStack, YStack } from '@my/ui'
 import { useAuthContext } from '../../provider/AuthProvider'
-import { Platform } from 'react-native'
 import { useLink } from 'solito/navigation'
 
-export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
+export function HomeScreen() {
   const { user } = useAuthContext()
   const linkProps = useLink({
     href: `/user`,
