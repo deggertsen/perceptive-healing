@@ -1,19 +1,14 @@
 import {
-  Anchor,
   Button,
   H1,
   Paragraph,
   Separator,
-  Sheet,
-  useToastController,
   SwitchThemeButton,
   SwitchRouterButton,
   XStack,
   YStack,
 } from '@my/ui'
-import { ChevronDown, ChevronUp } from '@tamagui/lucide-icons'
-import { useAuthContext } from 'packages/app/provider/AuthProvider'
-import { useState } from 'react'
+import { useAuthContext } from '../../provider/AuthProvider'
 import { Platform } from 'react-native'
 import { useLink } from 'solito/navigation'
 
@@ -46,12 +41,7 @@ export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
         fw="wrap"
         $sm={{ pos: 'relative', t: 0 }}
       >
-        {Platform.OS === 'web' && (
-          <>
-            <SwitchRouterButton pagesMode={pagesMode} />
-            <SwitchThemeButton />
-          </>
-        )}
+        <SwitchThemeButton />
       </XStack>
 
       <YStack gap="$4" ai="center">
@@ -75,67 +65,6 @@ export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
           <Button {...signUpLink}>Sign Up</Button>
         </XStack>
       )}
-
-      <SheetDemo />
     </YStack>
-  )
-}
-
-function SheetDemo() {
-  const toast = useToastController()
-
-  const [open, setOpen] = useState(false)
-  const [position, setPosition] = useState(0)
-
-  return (
-    <>
-      <Button
-        size="$6"
-        icon={open ? ChevronDown : ChevronUp}
-        circular
-        onPress={() => setOpen((x) => !x)}
-      />
-      <Sheet
-        modal
-        animation="medium"
-        open={open}
-        onOpenChange={setOpen}
-        snapPoints={[80]}
-        position={position}
-        onPositionChange={setPosition}
-        dismissOnSnapToBottom
-      >
-        <Sheet.Overlay animation="lazy" enterStyle={{ opacity: 0 }} exitStyle={{ opacity: 0 }} />
-        <Sheet.Handle bg="$gray8" />
-        <Sheet.Frame ai="center" jc="center" gap="$10" bg="$color2">
-          <XStack gap="$2">
-            <Paragraph ta="center">Made by</Paragraph>
-            <Anchor col="$blue10" href="https://twitter.com/natebirdman" target="_blank">
-              @natebirdman,
-            </Anchor>
-            <Anchor
-              color="$purple10"
-              href="https://github.com/tamagui/tamagui"
-              target="_blank"
-              rel="noreferrer"
-            >
-              give it a ⭐️
-            </Anchor>
-          </XStack>
-
-          <Button
-            size="$6"
-            circular
-            icon={ChevronDown}
-            onPress={() => {
-              setOpen(false)
-              toast.show('Sheet closed!', {
-                message: 'Just showing how toast works...',
-              })
-            }}
-          />
-        </Sheet.Frame>
-      </Sheet>
-    </>
   )
 }
