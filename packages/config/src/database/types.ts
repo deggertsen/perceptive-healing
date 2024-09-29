@@ -3,33 +3,45 @@ export type Json = string | number | boolean | null | { [key: string]: Json | un
 export interface Database {
   public: {
     Tables: {
-      // Add your tables here
-      example: {
+      clients: {
         Row: {
-          id: number
+          id: string
+          name: string
+          client_info: Json
           created_at: string
-          // Add other fields
+          updated_at: string
+          edited_at: string | null
+          deleted_at: string | null
         }
         Insert: {
-          id?: number
+          id?: string
+          name: string
+          client_info: Json
           created_at?: string
-          // Add other fields
+          updated_at?: string
+          edited_at?: string | null
+          deleted_at?: string | null
         }
         Update: {
-          id?: number
+          id?: string
+          name?: string
+          client_info?: Json
           created_at?: string
-          // Add other fields
+          updated_at?: string
+          edited_at?: string | null
+          deleted_at?: string | null
         }
       }
+      // ... other existing tables
     }
     Views: {
-      // Add views here if you have any
+      // ... existing views
     }
     Functions: {
-      // Add functions here if you have any
+      // ... existing functions
     }
     Enums: {
-      // Add enums here if you have any
+      // ... existing enums
     }
   }
 }
