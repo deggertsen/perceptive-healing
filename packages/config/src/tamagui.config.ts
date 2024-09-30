@@ -1,7 +1,7 @@
 import { createTamagui } from 'tamagui'
 import { createInterFont } from '@tamagui/font-inter'
 import { shorthands } from '@tamagui/shorthands'
-import { tokens, themes } from '@tamagui/config/v3'
+import { tokens, themes as baseThemes } from '@tamagui/config/v3'
 import { createMedia } from '@tamagui/react-native-media-driver'
 
 import { animations } from '@my/ui/src/animations'
@@ -50,15 +50,22 @@ const bodyFont = createInterFont(
   }
 )
 
+// Define the 'danger' sub-theme separately
+const dangerSubTheme = {
+  colorPrimary: '$colorDanger',
+  colorBackground: '$backgroundDanger',
+  colorBorder: '$borderDanger',
+  colorText: '$textDanger',
+  backgroundColor: '$backgroundDanger',
+  borderColor: '$borderDanger',
+}
+
 export const config = createTamagui({
   defaultFont: 'body',
   animations,
   shouldAddPrefersColorThemes: true,
   themeClassNameOnRoot: true,
 
-  // highly recommended to turn this on if you are using shorthands
-  // to avoid having multiple valid style keys that do the same thing
-  // we leave it off by default because it can be confusing as you onboard.
   onlyAllowShorthands: false,
   shorthands,
 
@@ -69,7 +76,18 @@ export const config = createTamagui({
   settings: {
     allowedStyleValues: 'somewhat-strict',
   },
-  themes,
+  themes: {
+    ...baseThemes,
+    // Register 'danger' as a separate sub-theme
+    light_danger: {
+      ...baseThemes.light,
+      ...dangerSubTheme,
+    },
+    dark_danger: {
+      ...baseThemes.dark,
+      ...dangerSubTheme,
+    },
+  },
   tokens,
   media: createMedia({
     xs: { maxWidth: 660 },
@@ -78,12 +96,12 @@ export const config = createTamagui({
     lg: { maxWidth: 1280 },
     xl: { maxWidth: 1420 },
     xxl: { maxWidth: 1600 },
-    gtXs: { minWidth: 660 + 1 },
-    gtSm: { minWidth: 800 + 1 },
-    gtMd: { minWidth: 1020 + 1 },
-    gtLg: { minWidth: 1280 + 1 },
+    gtXs: { minWidth: 661 },
+    gtSm: { minWidth: 801 },
+    gtMd: { minWidth: 1021 },
+    gtLg: { minWidth: 1281 },
     short: { maxHeight: 820 },
-    tall: { minHeight: 820 },
+    tall: { minHeight: 821 },
     hoverNone: { hover: 'none' },
     pointerCoarse: { pointer: 'coarse' },
   }),
