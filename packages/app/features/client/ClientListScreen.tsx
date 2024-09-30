@@ -14,8 +14,10 @@ import {
 import { supabase } from '@my/config'
 import { useRouter } from 'solito/navigation'
 import { Client } from './types'
+import { useAuthContext } from '../../provider/AuthProvider'
 
 export function ClientListScreen() {
+  const { user } = useAuthContext()
   const [clients, setClients] = useState<Client[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -32,7 +34,12 @@ export function ClientListScreen() {
   const fetchClients = async () => {
     try {
       setLoading(true)
-      const { data, error } = await supabase.from('clients').select('*')
+      const { data, error } = await supabase
+        .from('clients')
+        .select('*')
+        .eq('user_id', user?.uid)
+        .is('deleted_at', null)
+
       if (error) throw error
       setClients(data || [])
     } catch (err: any) {
@@ -43,7 +50,7 @@ export function ClientListScreen() {
   }
 
   const handleAddClient = async () => {
-    if (!newClientName.trim()) {
+    if (!newClientName.trim() || !user) {
       setError('Client name is required')
       return
     }
@@ -58,6 +65,7 @@ export function ClientListScreen() {
             email: newClientEmail.trim(),
             phone: newClientPhone.trim(),
           },
+          user_id: user.uid,
         })
         .select()
 
@@ -78,30 +86,31 @@ export function ClientListScreen() {
   }
 
   return (
-    <YStack f={1} jc="flex-start" ai="stretch" p="$4" gap="$4">
-      <H1>Clients</H1>
-      <Button onPress={() => setIsAddClientOpen(true)}>Add Client</Button>
-      {error && <Paragraph color="$red10">{error}</Paragraph>}
-      {loading ? (
-        <Paragraph>Loading clients...</Paragraph>
-      ) : (
-        <ScrollView>
-          {clients.map((client) => (
-            <XStack
-              key={client.id}
-              jc="space-between"
-              ai="center"
-              p="$2"
-              borderBottomWidth={1}
-              borderColor="$gray5"
-            >
-              <Paragraph>{client.name}</Paragraph>
-              <Button onPress={() => router.push(`/client/${client.id}`)}>View</Button>
-            </XStack>
-          ))}
-        </ScrollView>
-      )}
-
+    <>
+      <YStack f={1} jc="flex-start" ai="stretch" p="$4" gap="$4">
+        <H1>Clients</H1>
+        <Button onPress={() => setIsAddClientOpen(true)}>Add Client</Button>
+        {error && <Paragraph theme="danger">{error}</Paragraph>}
+        {loading ? (
+          <Paragraph>Loading clients...</Paragraph>
+        ) : (
+          <ScrollView>
+            {clients.map((client) => (
+              <XStack
+                key={client.id}
+                jc="space-between"
+                ai="center"
+                p="$2"
+                borderBottomWidth={1}
+                borderColor="$gray5"
+              >
+                <Paragraph>{client.name}</Paragraph>
+                <Button onPress={() => router.push(`/client/${client.id}`)}>View</Button>
+              </XStack>
+            ))}
+          </ScrollView>
+        )}
+      </YStack>
       <Modal open={isAddClientOpen} onOpenChange={setIsAddClientOpen} title="Add New Client">
         <YStack gap="$4" maw={600} p="$4">
           <Label htmlFor="name">Name</Label>
@@ -117,7 +126,7 @@ export function ClientListScreen() {
             placeholder="Email"
             value={newClientEmail}
             onChangeText={setNewClientEmail}
-            keyboardType="email-address"
+            inputMode="email"
           />
           <Label htmlFor="phone">Phone</Label>
           <Input
@@ -125,7 +134,7 @@ export function ClientListScreen() {
             placeholder="Phone"
             value={newClientPhone}
             onChangeText={setNewClientPhone}
-            keyboardType="phone-pad"
+            inputMode="tel"
           />
           <XStack gap="$2">
             <ModalClose asChild>
@@ -137,6 +146,6 @@ export function ClientListScreen() {
           </XStack>
         </YStack>
       </Modal>
-    </YStack>
+    </>
   )
 }
