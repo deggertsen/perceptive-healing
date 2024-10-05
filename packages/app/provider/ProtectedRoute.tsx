@@ -1,6 +1,6 @@
 import React from 'react'
-import { useAuthContext } from '../provider/AuthProvider'
 import { useRouter } from 'solito/navigation'
+import { useAuthContext } from '../provider/AuthProvider'
 
 type ProtectedRouteProps = {
   children: React.ReactNode
@@ -12,7 +12,7 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
 
   React.useEffect(() => {
     if (user === null) {
-      router.replace('/user/sign-in')
+      router.replace('/sign-in')
     }
   }, [user, router])
 
