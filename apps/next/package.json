@@ -27,7 +27,6 @@
   "devDependencies": {
     "@tamagui/next-plugin": "^1.112.3",
     "@types/node": "^20.14.1",
-    "eslint-config-next": "^14.2.3",
     "next-compose-plugins": "^2.2.1",
     "next-transpile-modules": "^10.0.1",
     "vitest": "^2.1.1"
