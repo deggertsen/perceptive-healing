@@ -1,0 +1,95 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "organizeImports": {
+    "enabled": true,
+    "ignore": [
+      "**/*.json",
+      "**/*.cjs",
+      "**/*.js",
+      "**/*.d.ts",
+      "**/*.config.ts",
+      "**/generated/*",
+      "**/dist/*",
+      "**/out/*",
+      "**/node_modules/*",
+      "**/hermes-engine/*"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": false,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 100,
+    "ignore": [
+      "**/*.json",
+      "**/*.cjs",
+      "**/*.js",
+      "**/*.d.ts",
+      "**/*.config.ts",
+      "**/generated/*",
+      "**/dist/*",
+      "**/out/*",
+      "**/node_modules/*",
+      "**/hermes-engine/*"
+    ]
+  },
+  "linter": {
+    "enabled": true,
+    "ignore": [
+      "**/*.json",
+      "**/*.cjs",
+      "**/*.js",
+      "**/*.d.ts",
+      "**/*.config.ts",
+      "**/generated/*",
+      "**/dist/*",
+      "**/out/*",
+      "**/node_modules/*",
+      "**/hermes-engine/*"
+    ],
+    "rules": {
+      "recommended": true,
+      "a11y": {
+        "noAccessKey": "error",
+        "useHeadingContent": "error"
+      },
+      "complexity": {
+        "useSimpleNumberKeys": "error",
+        "useSimplifiedLogicExpression": "off"
+      },
+      "correctness": {
+        "noUndeclaredVariables": "error",
+        "noUnusedVariables": "error",
+        "useExhaustiveDependencies": "error"
+      },
+      "performance": {},
+      "security": {},
+      "style": {
+        "noImplicitBoolean": "off",
+        "noNamespace": "error",
+        "noNegationElse": "error",
+        "noParameterProperties": "error",
+        "noRestrictedGlobals": "error",
+        "noShoutyConstants": "error",
+        "useBlockStatements": "off",
+        "useFragmentSyntax": "error",
+        "useNamingConvention": "off",
+        "useShorthandArrayType": "error",
+        "useSingleCaseStatement": "off"
+      },
+      "suspicious": {
+        "noConsoleLog": "error",
+        "noShadowRestrictedNames": "off"
+      },
+      "nursery": {}
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "semicolons": "asNeeded",
+      "quoteStyle": "single"
+    },
+    "globals": ["JSX", "expect", "describe", "beforeAll", "afterAll", "jest"]
+  }
+}

@@ -48,6 +48,7 @@
     "npm": "10.8"
   },
   "devDependencies": {
+    "biome": "^0.3.3",
     "vitest": "^2.1.1"
   }
 }
