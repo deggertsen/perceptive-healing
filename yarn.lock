@@ -3682,21 +3682,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-firebase/auth@npm:^21.0.0":
-  version: 21.0.0
-  resolution: "@react-native-firebase/auth@npm:21.0.0"
-  dependencies:
-    plist: "npm:^3.1.0"
-  peerDependencies:
-    "@react-native-firebase/app": 21.0.0
-    expo: ">=47.0.0"
-  peerDependenciesMeta:
-    expo:
-      optional: true
-  checksum: 10/8e755dab7ef85c8b741d3f4b0fe3b128d56b596c00659cd46d36c48fd67b0b8156bbe71e62421b96e0f5b9149b1c8c6a553eb21eeea621dde13da22cbc3946eb
-  languageName: node
-  linkType: hard
-
 "@react-native-firebase/crashlytics@npm:^21.0.0":
   version: 21.0.0
   resolution: "@react-native-firebase/crashlytics@npm:21.0.0"
@@ -7392,7 +7377,6 @@ __metadata:
     "@my/config": "npm:0.0.1"
     "@my/ui": "npm:0.0.1"
     "@react-native-firebase/app": "npm:^21.0.0"
-    "@react-native-firebase/auth": "npm:^21.0.0"
     "@react-native-firebase/crashlytics": "npm:^21.0.0"
     "@react-navigation/native": "npm:^6.1.17"
     "@supabase/supabase-js": "npm:^2.45.4"
@@ -7407,7 +7391,6 @@ __metadata:
     burnt: "npm:^0.12.2"
     expo-constants: "npm:~16.0.2"
     expo-linking: "npm:~6.3.1"
-    firebase: "npm:^10.13.2"
     react-native-safe-area-context: "npm:4.10.4"
     solito: "npm:^4.2.2"
   languageName: unknown
@@ -10138,7 +10121,6 @@ __metadata:
     "@expo/metro-config": "npm:~0.18.4"
     "@my/ui": "npm:0.0.1"
     "@react-native-firebase/app": "npm:^21.0.0"
-    "@react-native-firebase/auth": "npm:^21.0.0"
     "@react-native-firebase/crashlytics": "npm:^21.0.0"
     "@tamagui/babel-plugin": "npm:1.112.2"
     app: "npm:0.0.0"
@@ -10741,7 +10723,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"firebase@npm:10.13.2, firebase@npm:^10.13.2":
+"firebase@npm:10.13.2":
   version: 10.13.2
   resolution: "firebase@npm:10.13.2"
   dependencies:
@@ -14558,7 +14540,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"plist@npm:^3.0.5, plist@npm:^3.1.0":
+"plist@npm:^3.0.5":
   version: 3.1.0
   resolution: "plist@npm:3.1.0"
   dependencies:
