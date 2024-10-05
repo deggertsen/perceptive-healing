@@ -1,5 +1,6 @@
-import { Dialog, Sheet, useMedia, YStack, styled, Text, Button } from 'tamagui'
-import React, { createContext, useContext } from 'react'
+import type React from 'react'
+import { createContext, useContext } from 'react'
+import { Button, Dialog, Sheet, Text, YStack, styled, useEvent, useMedia } from 'tamagui'
 
 type ModalContextType = {
   isDialog: boolean
@@ -85,10 +86,8 @@ export const Modal = ({ open, onOpenChange, children, title }: ModalProps) => {
 }
 export const ModalClose = ({ children, ...props }) => {
   const { onOpenChange } = useModalContext()
-  console.log('ModalClose')
 
   const handleClose = () => {
-    console.log('close')
     onOpenChange(false)
   }
 
