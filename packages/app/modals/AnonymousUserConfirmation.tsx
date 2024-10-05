@@ -37,7 +37,7 @@ export const AnonymousUserConfirmation = ({ isAnonymousUser }: { isAnonymousUser
         </Paragraph>
         <XStack gap="$4">
           <ModalClose>
-            <Button theme="alt1">I Understand</Button>
+            <Button.Text theme="alt1">I Understand</Button.Text>
           </ModalClose>
           <Button theme="danger" onPress={navigateToSignIn}>
             Sign In
