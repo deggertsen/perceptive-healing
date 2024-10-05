@@ -1,10 +1,10 @@
+import { Button, H1, Input, Paragraph, XStack, YStack } from '@my/ui'
 import React, { useRef, useState } from 'react'
-import { Button, Paragraph, YStack, H1, XStack, Input } from '@my/ui'
-import { useAuthContext } from '../../provider/AuthProvider'
 import { useRouter } from 'solito/navigation'
+import { useAuthContext } from '../../provider/AuthProvider'
 
 export function SignUpScreen() {
-  const { signIn, createUserWithEmailAndPassword } = useAuthContext()
+  const { signUp, signIn } = useAuthContext()
   const router = useRouter()
 
   const [email, setEmail] = useState('')
@@ -25,10 +25,10 @@ export function SignUpScreen() {
     setLoading(true)
     setError(null)
     try {
-      await createUserWithEmailAndPassword(email, password)
+      await signUp(email, password)
       await signIn(email, password)
       router.push('/')
-    } catch (err: any) {
+    } catch (err) {
       setError(err.message || 'An error occurred during sign-up.')
     } finally {
       setLoading(false)
