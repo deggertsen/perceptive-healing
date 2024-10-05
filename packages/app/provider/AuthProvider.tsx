@@ -1,21 +1,22 @@
-import React, { createContext, useContext } from 'react'
+import type { User } from '@supabase/supabase-js'
+import type React from 'react'
+import { createContext, useContext } from 'react'
 import { useAuth } from '../hooks/useAuth'
-import { FirebaseAuthTypes } from '@react-native-firebase/auth'
 
 type AuthContextType = {
-  user: FirebaseAuthTypes.User | null
+  user: User | null
   signIn: (email: string, password: string) => Promise<void>
   signOut: () => Promise<void>
-  createUserWithEmailAndPassword: (email: string, password: string) => Promise<void>
+  signUp: (email: string, password: string) => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { user, signIn, signOut, createUserWithEmailAndPassword } = useAuth()
+  const { user, signIn, signOut, signUp } = useAuth()
 
   return (
-    <AuthContext.Provider value={{ user, signIn, signOut, createUserWithEmailAndPassword }}>
+    <AuthContext.Provider value={{ user, signIn, signOut, signUp }}>
       {children}
     </AuthContext.Provider>
   )
