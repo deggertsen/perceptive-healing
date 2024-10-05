@@ -14,6 +14,7 @@ import {
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'solito/navigation'
 import { useAuthContext } from '../../provider/AuthProvider'
+import { AnonymousUserConfirmation } from '../../modals/AnonymousUserConfirmation'
 import type { Client } from './types'
 
 export function ClientListScreen() {
@@ -146,6 +147,7 @@ export function ClientListScreen() {
           </XStack>
         </YStack>
       </Modal>
+      <AnonymousUserConfirmation isAnonymousUser={user?.is_anonymous ?? false} />
     </>
   )
 }
