@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import { supabase } from '@my/config'
 import {
   Button,
-  Paragraph,
-  YStack,
-  XStack,
   H1,
   Input,
   Label,
-  Spinner,
   Modal,
   ModalClose,
+  Paragraph,
+  Spinner,
+  XStack,
+  YStack,
 } from '@my/ui'
-import { supabase } from '@my/config'
-import { useRouter, useParams } from 'solito/navigation'
-import { Client } from './types'
+import React, { useState, useEffect } from 'react'
+import { useParams, useRouter } from 'solito/navigation'
 import { useAuthContext } from '../../provider/AuthProvider'
+import type { Client } from './types'
 
 export function ClientDetailScreen() {
   const { user } = useAuthContext()
@@ -27,7 +27,7 @@ export function ClientDetailScreen() {
   const { id } = useParams()
 
   useEffect(() => {
-    fetchClient()
+    if (id) fetchClient()
   }, [id])
 
   const fetchClient = async () => {
@@ -37,7 +37,7 @@ export function ClientDetailScreen() {
 
       if (error) throw error
       setClient(data)
-    } catch (err: any) {
+    } catch (err) {
       setError(err.message)
     } finally {
       setLoading(false)
@@ -59,7 +59,7 @@ export function ClientDetailScreen() {
 
       if (error) throw error
       setIsEditing(false)
-    } catch (err: any) {
+    } catch (err) {
       setError(err.message)
     } finally {
       setLoading(false)
@@ -92,7 +92,7 @@ export function ClientDetailScreen() {
 
       if (error) throw error
       router.push('/client')
-    } catch (err: any) {
+    } catch (err) {
       setError(err.message)
     } finally {
       setLoading(false)
