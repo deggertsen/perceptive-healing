@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import { supabase } from '@my/config'
 import {
   Button,
-  Paragraph,
-  YStack,
-  XStack,
   H1,
-  ScrollView,
   Input,
   Label,
   Modal,
   ModalClose,
+  Paragraph,
+  ScrollView,
+  XStack,
+  YStack,
 } from '@my/ui'
-import { supabase } from '@my/config'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'solito/navigation'
-import { Client } from './types'
 import { useAuthContext } from '../../provider/AuthProvider'
+import type { Client } from './types'
 
 export function ClientListScreen() {
   const { user } = useAuthContext()
@@ -37,12 +37,12 @@ export function ClientListScreen() {
       const { data, error } = await supabase
         .from('clients')
         .select('*')
-        .eq('user_id', user?.uid)
+        .eq('user_id', user?.id)
         .is('deleted_at', null)
 
       if (error) throw error
       setClients(data || [])
-    } catch (err: any) {
+    } catch (err) {
       setError(err.message)
     } finally {
       setLoading(false)
@@ -65,7 +65,7 @@ export function ClientListScreen() {
             email: newClientEmail.trim(),
             phone: newClientPhone.trim(),
           },
-          user_id: user.uid,
+          user_id: user.id,
         })
         .select()
 
@@ -78,7 +78,7 @@ export function ClientListScreen() {
         setNewClientEmail('')
         setNewClientPhone('')
       }
-    } catch (err: any) {
+    } catch (err) {
       setError(err.message)
     } finally {
       setLoading(false)
@@ -137,8 +137,8 @@ export function ClientListScreen() {
             inputMode="tel"
           />
           <XStack gap="$2">
-            <ModalClose asChild>
-              <Button theme="alt1">Cancel</Button>
+            <ModalClose>
+              <Button.Text>Cancel</Button.Text>
             </ModalClose>
             <Button theme="active" onPress={handleAddClient}>
               Add Client
