@@ -88,7 +88,7 @@ export function ClientDetailScreen() {
         .from('clients')
         .update({ deleted_at: new Date().toISOString() })
         .eq('id', client.id)
-        .eq('user_id', user?.uid)
+        .eq('user_id', user?.id)
 
       if (error) throw error
       router.push('/client')
