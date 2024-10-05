@@ -1,6 +1,6 @@
-import type { User } from '@supabase/supabase-js'
+import type { Session, User } from '@supabase/supabase-js'
 import type React from 'react'
-import { createContext, useContext } from 'react'
+import { createContext, useContext, useEffect } from 'react'
 import { useAuth } from '../hooks/useAuth'
 
 type AuthContextType = {
@@ -8,15 +8,35 @@ type AuthContextType = {
   signIn: (email: string, password: string) => Promise<void>
   signOut: () => Promise<void>
   signUp: (email: string, password: string) => Promise<void>
+  signInAnonymously: () => Promise<{ user: User | null; session: Session | null }>
+  convertAnonymousUser: (email: string, password: string) => Promise<{ user: User | null }>
+  isAnonymous: boolean
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { user, signIn, signOut, signUp } = useAuth()
+  const { user, signIn, signOut, signUp, signInAnonymously, convertAnonymousUser, isAnonymous } =
+    useAuth()
+
+  useEffect(() => {
+    if (!user) {
+      signInAnonymously()
+    }
+  }, [user, signInAnonymously])
 
   return (
-    <AuthContext.Provider value={{ user, signIn, signOut, signUp }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        signIn,
+        signOut,
+        signUp,
+        signInAnonymously,
+        convertAnonymousUser,
+        isAnonymous,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   )

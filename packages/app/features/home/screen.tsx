@@ -1,11 +1,13 @@
 import { Button, H1, Paragraph, Separator, SwitchThemeButton, XStack, YStack } from '@my/ui'
-import { useAuthContext } from '../../provider/AuthProvider'
+import { useEffect } from 'react'
 import { useLink } from 'solito/navigation'
+import { useAuthContext } from '../../provider/AuthProvider'
 
 export function HomeScreen() {
-  const { user } = useAuthContext()
+  const { isAnonymous } = useAuthContext()
+
   const linkProps = useLink({
-    href: `/user`,
+    href: '/user',
   })
 
   const signInLink = useLink({
@@ -49,7 +51,7 @@ export function HomeScreen() {
 
       <Button {...clientListLink}>Client List</Button>
 
-      {user?.isAnonymous && (
+      {isAnonymous && (
         <XStack gap="$4">
           <Button {...signInLink}>Sign In</Button>
           <Button {...signUpLink}>Sign Up</Button>
