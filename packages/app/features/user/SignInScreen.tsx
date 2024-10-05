@@ -1,7 +1,7 @@
+import { Button, H1, Input, Paragraph, XStack, YStack } from '@my/ui'
 import React, { useRef, useState } from 'react'
-import { Button, Paragraph, YStack, Input, H1, XStack } from '@my/ui'
-import { useAuthContext } from '../../provider/AuthProvider'
 import { useRouter } from 'solito/navigation'
+import { useAuthContext } from '../../provider/AuthProvider'
 
 export function SignInScreen() {
   const { signIn } = useAuthContext()
@@ -20,7 +20,7 @@ export function SignInScreen() {
     try {
       await signIn(email, password)
       router.push('/user') // Redirect to user dashboard or home
-    } catch (err: any) {
+    } catch (err) {
       setError(err.message || 'An error occurred during sign-in.')
     } finally {
       setLoading(false)
