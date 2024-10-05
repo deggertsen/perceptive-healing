@@ -155,7 +155,7 @@ export function ClientDetailScreen() {
         <YStack gap="$4">
           <Paragraph>Are you sure you want to delete this client?</Paragraph>
           <XStack gap="$4">
-            <ModalClose asChild>
+            <ModalClose>
               <Button theme="alt1">Cancel</Button>
             </ModalClose>
             <Button theme="danger" onPress={handleDelete}>
