@@ -1,4 +1,4 @@
-import { Button, H1, Input, Paragraph, XStack, YStack } from '@my/ui'
+import { Button, H1, Input, Paragraph, Text, XStack, YStack } from '@my/ui'
 import React, { useRef, useState } from 'react'
 import { useRouter } from 'solito/navigation'
 import { useAuthContext } from '../../provider/AuthProvider'
@@ -67,8 +67,8 @@ export function SignInScreen() {
         {loading ? 'Signing In...' : 'Sign In'}
       </Button>
       <XStack>
-        <Paragraph ta="center">Don't have an account? </Paragraph>
-        <Button onPress={() => router.push('/user/sign-up')}>Sign Up</Button>
+        <Paragraph ta="center">Don't have an account? <Text onPress={() => router.push('/sign-up')} cursor='pointer' style={{fontWeight: 'bold'}}>Sign Up</Text></Paragraph>
+        
       </XStack>
     </YStack>
   )
