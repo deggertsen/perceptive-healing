@@ -1,45 +1,41 @@
+import { supabase } from '@my/config'
+import type { Session, User } from '@supabase/supabase-js'
 import { useEffect, useState } from 'react'
-import { FirebaseAuthTypes } from '@react-native-firebase/auth'
-import auth from '@react-native-firebase/auth'
-
-const firebaseAuth = auth()
 
 export function useAuth() {
-  const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null)
+  const [user, setUser] = useState<User | null>(null)
+  const [session, setSession] = useState<Session | null>(null)
 
   useEffect(() => {
-    const unsubscribe = firebaseAuth.onAuthStateChanged(setUser)
-    return unsubscribe
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session)
+      setUser(session?.user ?? null)
+    })
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session)
+      setUser(session?.user ?? null)
+    })
+
+    return () => subscription.unsubscribe()
   }, [])
 
   async function signIn(email: string, password: string) {
-    try {
-      await firebaseAuth.signInWithEmailAndPassword(email, password)
-      console.info('Successfully signed in!')
-    } catch (error) {
-      console.error('Error signing in:', error)
-      throw error
-    }
+    const { error } = await supabase.auth.signInWithPassword({ email, password })
+    if (error) throw error
   }
 
   async function signOut() {
-    try {
-      await firebaseAuth.signOut()
-      console.info('Successfully signed out!')
-    } catch (error) {
-      console.error('Error signing out:', error)
-    }
+    const { error } = await supabase.auth.signOut()
+    if (error) throw error
   }
 
-  async function createUserWithEmailAndPassword(email: string, password: string) {
-    try {
-      await firebaseAuth.createUserWithEmailAndPassword(email, password)
-      console.info('Successfully signed up!')
-    } catch (error) {
-      console.error('Error signing up:', error)
-      throw error
-    }
+  async function signUp(email: string, password: string) {
+    const { error } = await supabase.auth.signUp({ email, password })
+    if (error) throw error
   }
 
-  return { user, signIn, signOut, createUserWithEmailAndPassword }
+  return { user, signIn, signOut, signUp, session }
 }
