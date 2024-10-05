@@ -11,11 +11,11 @@ export function HomeScreen() {
   })
 
   const signInLink = useLink({
-    href: '/user/sign-in',
+    href: '/sign-in',
   })
 
   const signUpLink = useLink({
-    href: '/user/sign-up',
+    href: '/sign-up',
   })
 
   const clientListLink = useLink({
