@@ -10,6 +10,7 @@ import {
   Spinner,
   XStack,
   YStack,
+  useToastController,
 } from '@my/ui'
 import React, { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'solito/navigation'
@@ -20,11 +21,11 @@ export function ClientDetailScreen() {
   const { user } = useAuthContext()
   const [client, setClient] = useState<Client | null>(null)
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
   const [isEditing, setIsEditing] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const router = useRouter()
   const { id } = useParams()
+  const toast = useToastController()
 
   useEffect(() => {
     if (id) fetchClient()
@@ -38,7 +39,10 @@ export function ClientDetailScreen() {
       if (error) throw error
       setClient(data)
     } catch (err) {
-      setError(err.message)
+      toast.show('Error', {
+        message: err.message,
+        type: 'error',
+      })
     } finally {
       setLoading(false)
     }
@@ -59,8 +63,15 @@ export function ClientDetailScreen() {
 
       if (error) throw error
       setIsEditing(false)
+      toast.show('Success', {
+        message: 'Client updated successfully',
+        type: 'success',
+      })
     } catch (err) {
-      setError(err.message)
+      toast.show('Error', {
+        message: err.message,
+        type: 'error',
+      })
     } finally {
       setLoading(false)
     }
@@ -92,15 +103,21 @@ export function ClientDetailScreen() {
 
       if (error) throw error
       router.push('/client')
+      toast.show('Success', {
+        message: 'Client deleted successfully',
+        type: 'success',
+      })
     } catch (err) {
-      setError(err.message)
+      toast.show('Error', {
+        message: err.message,
+        type: 'error',
+      })
     } finally {
       setLoading(false)
     }
   }
 
   if (loading) return <Spinner />
-  if (error) return <Paragraph>{error}</Paragraph>
   if (!client) return <Paragraph>Client not found</Paragraph>
 
   return (
