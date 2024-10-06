@@ -10,24 +10,25 @@ import {
   ScrollView,
   XStack,
   YStack,
+  useToastController,
 } from '@my/ui'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'solito/navigation'
-import { useAuthContext } from '../../provider/AuthProvider'
 import { AnonymousUserConfirmation } from '../../modals/AnonymousUserConfirmation'
-import type { Client } from './types'
+import { useAuthContext } from '../../provider/AuthProvider'
 import { PageWrapper } from '../../provider/PageWrapper'
+import type { Client } from './types'
 
 export function ClientListScreen() {
   const { user } = useAuthContext()
   const [clients, setClients] = useState<Client[]>([])
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
   const [isAddClientOpen, setIsAddClientOpen] = useState(false)
   const [newClientName, setNewClientName] = useState('')
   const [newClientEmail, setNewClientEmail] = useState('')
   const [newClientPhone, setNewClientPhone] = useState('')
   const router = useRouter()
+  const toast = useToastController()
 
   useEffect(() => {
     fetchClients()
@@ -45,7 +46,10 @@ export function ClientListScreen() {
       if (error) throw error
       setClients(data || [])
     } catch (err) {
-      setError(err.message)
+      toast.show('Error', {
+        message: err.message,
+        type: 'error',
+      })
     } finally {
       setLoading(false)
     }
@@ -53,7 +57,10 @@ export function ClientListScreen() {
 
   const handleAddClient = async () => {
     if (!newClientName.trim() || !user) {
-      setError('Client name is required')
+      toast.show('Client name is required', {
+        message: 'Please enter a valid client name.',
+        type: 'error',
+      })
       return
     }
 
@@ -79,9 +86,16 @@ export function ClientListScreen() {
         setNewClientName('')
         setNewClientEmail('')
         setNewClientPhone('')
+        toast.show('Client added', {
+          message: 'New client has been successfully added.',
+          type: 'success',
+        })
       }
     } catch (err) {
-      setError(err.message)
+      toast.show('Error', {
+        message: err.message,
+        type: 'error',
+      })
     } finally {
       setLoading(false)
     }
@@ -92,7 +106,6 @@ export function ClientListScreen() {
       <YStack f={1} jc="flex-start" ai="stretch" p="$4" gap="$4">
         <H1>Clients</H1>
         <Button onPress={() => setIsAddClientOpen(true)}>Add Client</Button>
-        {error && <Paragraph theme="danger">{error}</Paragraph>}
         {loading ? (
           <Paragraph>Loading clients...</Paragraph>
         ) : (
