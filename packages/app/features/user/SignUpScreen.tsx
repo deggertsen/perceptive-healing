@@ -2,6 +2,7 @@ import { Button, H1, Input, Paragraph, XStack, YStack } from '@my/ui'
 import React, { useRef, useState } from 'react'
 import { useRouter } from 'solito/navigation'
 import { useAuthContext } from '../../provider/AuthProvider'
+import { PageWrapper } from '../../provider/PageWrapper'
 
 export function SignUpScreen() {
   const { signUp, signIn } = useAuthContext()
@@ -36,6 +37,7 @@ export function SignUpScreen() {
   }
 
   return (
+    <PageWrapper>
     <YStack f={1} jc="center" ai="center" gap="$6" p="$4" bg="$background">
       <H1 ta="center" col="$purple10">
         Sign Up
@@ -90,6 +92,7 @@ export function SignUpScreen() {
         <Paragraph ta="center">Already have an account? </Paragraph>
         <Button onPress={() => router.push('/sign-in')}>Sign In</Button>
       </XStack>
-    </YStack>
+      </YStack>
+    </PageWrapper>
   )
 }

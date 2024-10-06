@@ -1,5 +1,4 @@
 import { Button, H1, Paragraph, Separator, SwitchThemeButton, XStack, YStack } from '@my/ui'
-import { useEffect } from 'react'
 import { useLink } from 'solito/navigation'
 import { useAuthContext } from '../../provider/AuthProvider'
 

@@ -16,6 +16,7 @@ import { useRouter } from 'solito/navigation'
 import { useAuthContext } from '../../provider/AuthProvider'
 import { AnonymousUserConfirmation } from '../../modals/AnonymousUserConfirmation'
 import type { Client } from './types'
+import { PageWrapper } from '../../provider/PageWrapper'
 
 export function ClientListScreen() {
   const { user } = useAuthContext()
@@ -87,7 +88,7 @@ export function ClientListScreen() {
   }
 
   return (
-    <>
+    <PageWrapper>
       <YStack f={1} jc="flex-start" ai="stretch" p="$4" gap="$4">
         <H1>Clients</H1>
         <Button onPress={() => setIsAddClientOpen(true)}>Add Client</Button>
@@ -148,6 +149,6 @@ export function ClientListScreen() {
         </YStack>
       </Modal>
       <AnonymousUserConfirmation isAnonymousUser={user?.is_anonymous ?? false} />
-    </>
+    </PageWrapper>
   )
 }
