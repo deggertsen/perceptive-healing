@@ -17,9 +17,13 @@ export const AnonymousUserConfirmation = ({ isAnonymousUser }: { isAnonymousUser
     if (isAnonymousUser) {
       const checkIfHasSeen = async () => {
         const hasSeen = await getItem('hasSeenAnonymousUserConfirmation')
-        if (!hasSeen) {
+        /* If they have seen it in the last 24 hours, don't show it */
+        if (
+          hasSeen &&
+          new Date().getTime() - new Date(hasSeen as string).getTime() > 1000 * 60 * 60 * 24
+        ) {
           setIsOpen(true)
-          setItem('hasSeenAnonymousUserConfirmation', 'true')
+          setItem('hasSeenAnonymousUserConfirmation', new Date().toISOString())
         }
       }
       checkIfHasSeen()
