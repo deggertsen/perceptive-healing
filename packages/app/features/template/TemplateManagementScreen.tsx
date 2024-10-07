@@ -32,6 +32,8 @@ export function TemplateManagementScreen() {
   const [loading, setLoading] = useState(true)
   const [isAddTemplateOpen, setIsAddTemplateOpen] = useState(false)
   const [newTemplateName, setNewTemplateName] = useState('')
+  const [isEditTemplateOpen, setIsEditTemplateOpen] = useState(false)
+  const [editingTemplate, setEditingTemplate] = useState<Template | null>(null)
   const toast = useToastController()
 
   useEffect(() => {
@@ -156,6 +158,11 @@ export function TemplateManagementScreen() {
     }
   }
 
+  const handleEditTemplate = (template: Template) => {
+    setEditingTemplate(template)
+    setIsEditTemplateOpen(true)
+  }
+
   return (
     <PageWrapper>
       <YStack f={1} jc="flex-start" ai="stretch" p="$4" gap="$4">
@@ -166,10 +173,21 @@ export function TemplateManagementScreen() {
         ) : (
           <ScrollView>
             {templates.map((template) => (
-              <XStack key={template.id} jc="space-between" ai="center" p="$2">
+              <XStack
+                key={template.id}
+                jc="space-between"
+                ai="center"
+                p="$2"
+                borderBottomWidth={1}
+                borderColor="$gray5"
+              >
                 <Paragraph>{template.name}</Paragraph>
-                <Button onPress={() => handleUpdateTemplate(template)}>Edit</Button>
-                <Button onPress={() => handleDeleteTemplate(template.id)}>Delete</Button>
+                <XStack gap="$2">
+                  <Button onPress={() => handleEditTemplate(template)}>Edit</Button>
+                  <Button theme="danger" onPress={() => handleDeleteTemplate(template.id)}>
+                    Delete
+                  </Button>
+                </XStack>
               </XStack>
             ))}
           </ScrollView>
@@ -190,6 +208,35 @@ export function TemplateManagementScreen() {
             </ModalClose>
             <Button theme="active" onPress={handleAddTemplate}>
               Add Template
+            </Button>
+          </XStack>
+        </YStack>
+      </Modal>
+      <Modal open={isEditTemplateOpen} onOpenChange={setIsEditTemplateOpen} title="Edit Template">
+        <YStack gap="$4" maw={600} p="$4">
+          <Label htmlFor="editTemplateName">Template Name</Label>
+          <Input
+            id="editTemplateName"
+            placeholder="Template Name"
+            value={editingTemplate?.name || ''}
+            onChangeText={(value) =>
+              setEditingTemplate((prev) => (prev ? { ...prev, name: value } : null))
+            }
+          />
+          <XStack gap="$2">
+            <ModalClose>
+              <Button.Text>Cancel</Button.Text>
+            </ModalClose>
+            <Button
+              theme="active"
+              onPress={() => {
+                if (editingTemplate) {
+                  handleUpdateTemplate(editingTemplate)
+                  setIsEditTemplateOpen(false)
+                }
+              }}
+            >
+              Update Template
             </Button>
           </XStack>
         </YStack>
