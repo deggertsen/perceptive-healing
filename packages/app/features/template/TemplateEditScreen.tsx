@@ -10,7 +10,8 @@ import {
   YStack,
   useToastController,
 } from '@my/ui'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { Animated, PanResponder } from 'react-native'
 import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
 import { useAuthContext } from '../../provider/AuthProvider'
@@ -29,6 +30,41 @@ export function TemplateEditScreen() {
   const router = useRouter()
   const { params } = useParams()
   const id = params.id
+
+  const [dragging, setDragging] = useState(false)
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null)
+
+  const pan = useRef(new Animated.ValueXY()).current
+
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onMoveShouldSetPanResponder: () => true,
+      onPanResponderGrant: (_, gestureState) => {
+        setDragging(true)
+        setDraggedIndex(Math.floor(gestureState.y0 / 50)) // Assuming each item is 50 pixels high
+      },
+      onPanResponderMove: Animated.event([null, { dy: pan.y }], { useNativeDriver: false }),
+      onPanResponderRelease: (_, gestureState) => {
+        setDragging(false)
+        const newIndex = Math.floor((gestureState.moveY - 100) / 50) // Adjust based on your layout
+        if (
+          draggedIndex !== null &&
+          newIndex !== draggedIndex &&
+          newIndex >= 0 &&
+          template &&
+          newIndex < template.fields.length
+        ) {
+          const newFields = [...template.fields]
+          const [reorderedItem] = newFields.splice(draggedIndex, 1)
+          newFields.splice(newIndex, 0, reorderedItem)
+          setTemplate({ ...template, fields: newFields })
+        }
+        setDraggedIndex(null)
+        pan.setValue({ x: 0, y: 0 })
+      },
+    }),
+  ).current
 
   useEffect(() => {
     if (id !== 'new') {
@@ -136,17 +172,26 @@ export function TemplateEditScreen() {
           />
           <H1>Fields</H1>
           {template.fields.map((field, index) => (
-            <YStack key={field.id} gap="$2">
-              <Input
-                value={field.name}
-                onChangeText={(text) => handleUpdateField(index, { name: text })}
-                placeholder="Field Name"
-              />
-              <XStack gap="$2">
-                <Button onPress={() => handleDeleteField(index)}>Delete</Button>
-                {/* Add more field type options here */}
-              </XStack>
-            </YStack>
+            <Animated.View
+              key={field.id}
+              style={[
+                draggedIndex === index ? { transform: [{ translateY: pan.y }] } : undefined,
+                { opacity: dragging && draggedIndex === index ? 0.5 : 1 },
+              ]}
+              {...panResponder.panHandlers}
+            >
+              <YStack gap="$2">
+                <Input
+                  value={field.name}
+                  onChangeText={(text) => handleUpdateField(index, { name: text })}
+                  placeholder="Field Name"
+                />
+                <XStack gap="$2">
+                  <Button onPress={() => handleDeleteField(index)}>Delete</Button>
+                  {/* Add more field type options here */}
+                </XStack>
+              </YStack>
+            </Animated.View>
           ))}
           <Button onPress={handleAddField}>Add Field</Button>
           <XStack gap="$2">
