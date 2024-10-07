@@ -16,11 +16,18 @@ import React, { useEffect, useState } from 'react'
 import { useAuthContext } from '../../provider/AuthProvider'
 import { PageWrapper } from '../../provider/PageWrapper'
 
+interface TemplateField {
+  id: string
+  name: string
+  type: 'text' | 'multiline' | 'number' | 'checkbox' | 'date'
+  order: number
+}
+
 interface Template {
   id: string
   user_id: string
   name: string
-  fields: any[] // We'll define a more specific type for fields later
+  fields: TemplateField[]
   is_default: boolean
   created_at: string
   updated_at: string
@@ -69,10 +76,10 @@ export function TemplateManagementScreen() {
     try {
       setLoading(true)
       const defaultFields = [
-        { name: 'Subjective', type: 'text' },
-        { name: 'Objective', type: 'text' },
-        { name: 'Assessment', type: 'text' },
-        { name: 'Plan', type: 'text' },
+        { name: 'Subjective', type: 'multiline' },
+        { name: 'Objective', type: 'multiline' },
+        { name: 'Assessment', type: 'multiline' },
+        { name: 'Plan', type: 'multiline' },
       ]
 
       const { data, error } = await supabase
