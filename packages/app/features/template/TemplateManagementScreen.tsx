@@ -131,7 +131,25 @@ export function TemplateManagementScreen() {
           </ScrollView>
         )}
       </YStack>
-      {/* Add Modal for creating/editing templates */}
+      <Modal open={isAddTemplateOpen} onOpenChange={setIsAddTemplateOpen} title="Add New Template">
+        <YStack gap="$4" maw={600} p="$4">
+          <Label htmlFor="templateName">Template Name</Label>
+          <Input
+            id="templateName"
+            placeholder="Template Name"
+            value={newTemplateName}
+            onChangeText={setNewTemplateName}
+          />
+          <XStack gap="$2">
+            <ModalClose>
+              <Button.Text>Cancel</Button.Text>
+            </ModalClose>
+            <Button theme="active" onPress={handleAddTemplate}>
+              Add Template
+            </Button>
+          </XStack>
+        </YStack>
+      </Modal>
     </PageWrapper>
   )
 }
