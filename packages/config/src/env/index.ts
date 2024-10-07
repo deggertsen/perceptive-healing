@@ -1,7 +1,7 @@
 import getConfig from 'next/config'
 
 type ConfigType = {
-  serverRuntimeConfig: {}
+  serverRuntimeConfig: Record<string, unknown>
   publicRuntimeConfig: {
     supabaseConfig: {
       url: string
