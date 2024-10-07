@@ -56,7 +56,52 @@ export function TemplateManagementScreen() {
   }
 
   const handleAddTemplate = async () => {
-    // Implementation for adding a new template
+    if (!newTemplateName.trim() || !user) {
+      toast.show('Template name is required', {
+        message: 'Please enter a valid template name.',
+        type: 'error',
+      })
+      return
+    }
+
+    try {
+      setLoading(true)
+      const defaultFields = [
+        { name: 'Subjective', type: 'text' },
+        { name: 'Objective', type: 'text' },
+        { name: 'Assessment', type: 'text' },
+        { name: 'Plan', type: 'text' },
+      ]
+
+      const { data, error } = await supabase
+        .from('note_templates')
+        .insert({
+          name: newTemplateName.trim(),
+          fields: defaultFields,
+          user_id: user.id,
+          is_default: false,
+        })
+        .select()
+
+      if (error) throw error
+
+      if (data) {
+        setTemplates([...templates, data[0]])
+        setIsAddTemplateOpen(false)
+        setNewTemplateName('')
+        toast.show('Template added', {
+          message: 'New template has been successfully added.',
+          type: 'success',
+        })
+      }
+    } catch (err) {
+      toast.show('Error', {
+        message: err.message,
+        type: 'error',
+      })
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleUpdateTemplate = async (template: Template) => {
