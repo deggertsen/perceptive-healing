@@ -105,7 +105,29 @@ export function TemplateManagementScreen() {
   }
 
   const handleUpdateTemplate = async (template: Template) => {
-    // Implementation for updating a template
+    try {
+      setLoading(true)
+      const { error } = await supabase
+        .from('note_templates')
+        .update({ name: template.name, fields: template.fields })
+        .eq('id', template.id)
+        .eq('user_id', user?.id)
+
+      if (error) throw error
+
+      toast.show('Template updated', {
+        message: 'Template has been successfully updated.',
+        type: 'success',
+      })
+      fetchTemplates()
+    } catch (err) {
+      toast.show('Error', {
+        message: err.message,
+        type: 'error',
+      })
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleDeleteTemplate = async (templateId: string) => {
