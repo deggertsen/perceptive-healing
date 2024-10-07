@@ -67,7 +67,7 @@ export function TemplateManagementScreen() {
     <PageWrapper>
       <YStack f={1} jc="flex-start" ai="stretch" p="$4" gap="$4">
         <H1>Template Management</H1>
-        <Button onPress={() => router.push('/template/new')}>Add Template</Button>
+        <Button onPress={() => router.push('/notes/templates/edit')}>Add Template</Button>
         {loading ? (
           <Paragraph>Loading templates...</Paragraph>
         ) : (
@@ -83,7 +83,13 @@ export function TemplateManagementScreen() {
               >
                 <Paragraph>{template.name}</Paragraph>
                 <XStack gap="$2">
-                  <Button onPress={() => router.push(`/template/${template.id}`)}>Edit</Button>
+                  <Button
+                    onPress={() =>
+                      router.push('/notes/templates/edit', { query: { id: template.id } })
+                    }
+                  >
+                    Edit
+                  </Button>
                   <Button theme="danger" onPress={() => handleDeleteTemplate(template.id)}>
                     Delete
                   </Button>

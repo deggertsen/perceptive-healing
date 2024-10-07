@@ -85,7 +85,7 @@ export function TemplateEditScreen() {
         message: `Template ${id === 'new' ? 'created' : 'updated'} successfully`,
         type: 'success',
       })
-      router.push('/template')
+      router.push('/notes/templates')
     } catch (err) {
       toast.show('Error', {
         message: err.message,
@@ -150,7 +150,7 @@ export function TemplateEditScreen() {
           ))}
           <Button onPress={handleAddField}>Add Field</Button>
           <XStack gap="$2">
-            <Button theme="alt1" onPress={() => router.push('/template')}>
+            <Button theme="alt1" onPress={() => router.push('/notes/templates')}>
               Cancel
             </Button>
             <Button theme="active" onPress={handleSave}>
