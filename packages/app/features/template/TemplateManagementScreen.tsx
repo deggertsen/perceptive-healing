@@ -131,7 +131,29 @@ export function TemplateManagementScreen() {
   }
 
   const handleDeleteTemplate = async (templateId: string) => {
-    // Implementation for deleting a template
+    try {
+      setLoading(true)
+      const { error } = await supabase
+        .from('note_templates')
+        .delete()
+        .eq('id', templateId)
+        .eq('user_id', user?.id)
+
+      if (error) throw error
+
+      setTemplates(templates.filter((t) => t.id !== templateId))
+      toast.show('Template deleted', {
+        message: 'Template has been successfully deleted.',
+        type: 'success',
+      })
+    } catch (err) {
+      toast.show('Error', {
+        message: err.message,
+        type: 'error',
+      })
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
