@@ -39,8 +39,6 @@ const expoConfig = ({ config }: ConfigContext): ExpoConfig => ({
     plugins: [
       'expo-router',
       'expo-font',
-      '@react-native-firebase/app',
-      '@react-native-firebase/crashlytics',
     ],
     experiments: {
       typedRoutes: true,
