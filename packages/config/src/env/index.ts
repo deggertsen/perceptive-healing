@@ -1,4 +1,3 @@
-import getConfig from 'next/config'
 
 type ConfigType = {
   serverRuntimeConfig: Record<string, unknown>
@@ -25,9 +24,6 @@ const getLocalConfig = (): ConfigType => {
 }
 
 const getConfigWithTypes = (): ConfigType => {
-  const nextConfig = getConfig() as unknown as ConfigType | undefined
-  if (nextConfig) return nextConfig
-
   const localConfig = getLocalConfig()
   if (localConfig) return localConfig
 

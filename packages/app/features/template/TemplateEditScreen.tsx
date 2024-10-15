@@ -6,15 +6,15 @@ import {
   Label,
   Paragraph,
   ScrollView,
+  Select,
   XStack,
   YStack,
   useToastController,
-  Select,
 } from '@my/ui'
 import React, { useEffect, useRef, useState } from 'react'
 import { Animated, PanResponder } from 'react-native'
 import { createParam } from 'solito'
-import { useRouter } from 'solito/router'
+import { useRouter } from 'solito/navigation'
 import { useAuthContext } from '../../provider/AuthProvider'
 import { PageWrapper } from '../../provider/PageWrapper'
 import type { Template, TemplateField } from './types'
