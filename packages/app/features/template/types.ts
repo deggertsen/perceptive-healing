@@ -3,6 +3,8 @@ export interface TemplateField {
   name: string
   type: 'text' | 'multiline' | 'number' | 'checkbox' | 'date'
   order: number
+  placeholder?: string
+  default_value?: string
 }
 
 export interface Template {

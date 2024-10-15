@@ -1,6 +1,7 @@
 import { supabase } from '@my/config'
 import {
   Button,
+  Checkbox,
   H1,
   Input,
   Label,
@@ -145,7 +146,7 @@ export function NoteEditScreen() {
         template_id: template.id,
         content: template.fields.reduce(
           (acc, field) => {
-            acc[field.name] = ''
+            acc[field.name] = field.default_value || ''
             return acc
           },
           {} as Record<string, string>,
@@ -195,12 +196,24 @@ export function NoteEditScreen() {
           {selectedTemplate?.fields.map((field) => (
             <YStack key={field.id} gap="$2">
               <Label htmlFor={field.name}>{field.name}</Label>
-              <Input
-                id={field.name}
-                value={note?.content[field.name] || ''}
-                onChangeText={(text) => handleInputChange(field.name, text)}
-                multiline={field.type === 'multiline'}
-              />
+              {field.type === 'checkbox' ? (
+                <Checkbox
+                  id={field.name}
+                  checked={note?.content[field.name] === 'true'}
+                  onCheckedChange={(checked) =>
+                    handleInputChange(field.name, checked ? 'true' : 'false')
+                  }
+                />
+              ) : (
+                <Input
+                  id={field.name}
+                  value={note?.content[field.name] || ''}
+                  onChangeText={(text) => handleInputChange(field.name, text)}
+                  multiline={field.type === 'multiline'}
+                  keyboardType={field.type === 'number' ? 'numeric' : 'default'}
+                  placeholder={field.placeholder}
+                />
+              )}
             </YStack>
           ))}
 

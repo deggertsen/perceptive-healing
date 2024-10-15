@@ -9,6 +9,7 @@ import {
   XStack,
   YStack,
   useToastController,
+  Select,
 } from '@my/ui'
 import React, { useEffect, useRef, useState } from 'react'
 import { Animated, PanResponder } from 'react-native'
@@ -139,6 +140,8 @@ export function TemplateEditScreen() {
       name: '',
       type: 'text',
       order: template.fields.length,
+      placeholder: '',
+      default_value: '',
     }
     setTemplate({ ...template, fields: [...template.fields, newField] })
   }
@@ -186,9 +189,45 @@ export function TemplateEditScreen() {
                   onChangeText={(text) => handleUpdateField(index, { name: text })}
                   placeholder="Field Name"
                 />
+                <Select
+                  value={field.type}
+                  onValueChange={(value) =>
+                    handleUpdateField(index, { type: value as TemplateField['type'] })
+                  }
+                >
+                  <Select.Trigger>
+                    <Select.Value placeholder="Select field type" />
+                  </Select.Trigger>
+                  <Select.Content>
+                    <Select.Item index={0} key="text" value="text">
+                      <Select.ItemText>Text</Select.ItemText>
+                    </Select.Item>
+                    <Select.Item index={1} key="multiline" value="multiline">
+                      <Select.ItemText>Multiline</Select.ItemText>
+                    </Select.Item>
+                    <Select.Item index={2} key="number" value="number">
+                      <Select.ItemText>Number</Select.ItemText>
+                    </Select.Item>
+                    <Select.Item index={3} key="checkbox" value="checkbox">
+                      <Select.ItemText>Checkbox</Select.ItemText>
+                    </Select.Item>
+                    <Select.Item index={4} key="date" value="date">
+                      <Select.ItemText>Date</Select.ItemText>
+                    </Select.Item>
+                  </Select.Content>
+                </Select>
+                <Input
+                  value={field.placeholder}
+                  onChangeText={(text) => handleUpdateField(index, { placeholder: text })}
+                  placeholder="Placeholder (optional)"
+                />
+                <Input
+                  value={field.default_value}
+                  onChangeText={(text) => handleUpdateField(index, { default_value: text })}
+                  placeholder="Default Value (optional)"
+                />
                 <XStack gap="$2">
                   <Button onPress={() => handleDeleteField(index)}>Delete</Button>
-                  {/* Add more field type options here */}
                 </XStack>
               </YStack>
             </Animated.View>
