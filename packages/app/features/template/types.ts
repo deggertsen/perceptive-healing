@@ -14,3 +14,21 @@ export interface Template {
   created_at: string
   updated_at: string
 }
+
+export interface Client {
+  id: string
+  user_id: string
+  name: string
+  edited_at: string
+  created_at: string
+}
+
+export interface Note {
+  id: string
+  user_id: string
+  client_id: string
+  template_id: string
+  content: Record<string, string>
+  created_at: string
+  updated_at: string
+}
