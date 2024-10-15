@@ -39,14 +39,5 @@ export interface Database {
       }
       // ... other existing tables
     }
-    Views: {
-      // ... existing views
-    }
-    Functions: {
-      // ... existing functions
-    }
-    Enums: {
-      // ... existing enums
-    }
   }
 }

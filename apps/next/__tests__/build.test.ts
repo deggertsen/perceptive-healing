@@ -1,6 +1,6 @@
-import { execSync } from 'child_process'
-import { expect, test } from 'vitest'
+import { execSync } from 'node:child_process'
 import path from 'node:path'
+import { expect, test } from 'vitest'
 
 test('Next.js build completes', () => {
   const buildOutput = execSync('yarn build', {

@@ -1,5 +1,5 @@
 {
-  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "$schema": "https://biomejs.dev/schemas/1.9.3/schema.json",
   "organizeImports": {
     "enabled": true,
     "ignore": [
@@ -12,11 +12,12 @@
       "**/dist/*",
       "**/out/*",
       "**/node_modules/*",
-      "**/hermes-engine/*"
+      "**/hermes-engine/*",
+      "apps/expo/ios",
+      "apps/expo/android"
     ]
   },
   "formatter": {
-    "enabled": true,
     "formatWithErrors": false,
     "indentStyle": "space",
     "indentWidth": 2,
@@ -31,7 +32,9 @@
       "**/dist/*",
       "**/out/*",
       "**/node_modules/*",
-      "**/hermes-engine/*"
+      "**/hermes-engine/*",
+      "apps/expo/ios",
+      "apps/expo/android"
     ]
   },
   "linter": {
@@ -46,42 +49,40 @@
       "**/dist/*",
       "**/out/*",
       "**/node_modules/*",
-      "**/hermes-engine/*"
+      "**/hermes-engine/*",
+      "apps/expo/ios",
+      "apps/expo/android"
     ],
     "rules": {
       "recommended": true,
-      "a11y": {
-        "noAccessKey": "error",
-        "useHeadingContent": "error"
-      },
       "complexity": {
-        "useSimpleNumberKeys": "error",
         "useSimplifiedLogicExpression": "off"
       },
       "correctness": {
-        "noUndeclaredVariables": "error",
-        "noUnusedVariables": "error",
-        "useExhaustiveDependencies": "error"
+        "noUnusedImports": "error",
+        "noUnusedVariables": "error"
       },
-      "performance": {},
-      "security": {},
       "style": {
         "noImplicitBoolean": "off",
-        "noNamespace": "error",
-        "noNegationElse": "error",
-        "noParameterProperties": "error",
-        "noRestrictedGlobals": "error",
-        "noShoutyConstants": "error",
         "useBlockStatements": "off",
-        "useFragmentSyntax": "error",
         "useNamingConvention": "off",
-        "useShorthandArrayType": "error",
         "useSingleCaseStatement": "off"
       },
       "suspicious": {
-        "noConsoleLog": "error",
-        "noShadowRestrictedNames": "off"
+        "noShadowRestrictedNames": "off",
+        "noConsole": {
+          "level": "error",
+          "options": {
+            "allow": ["assert", "error", "info", "warn"]
+          }
+        }
       },
+      "a11y": {
+        "useSemanticElements": "off",
+        "useGenericFontNames": "off"
+      },
+      "performance": {},
+      "security": {},
       "nursery": {}
     }
   },
@@ -90,6 +91,7 @@
       "semicolons": "asNeeded",
       "quoteStyle": "single"
     },
-    "globals": ["JSX", "expect", "describe", "beforeAll", "afterAll", "jest"]
+    "globals": ["JSX", "expect", "describe", "beforeAll", "afterAll", "jest"],
+    "jsxRuntime": "reactClassic"
   }
 }

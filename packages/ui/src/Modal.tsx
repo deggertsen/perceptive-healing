@@ -1,6 +1,6 @@
 import type React from 'react'
 import { createContext, useContext } from 'react'
-import { Button, Dialog, Sheet, Text, YStack, styled, useEvent, useMedia } from 'tamagui'
+import { Button, Dialog, Sheet, Text, YStack, useMedia } from 'tamagui'
 
 type ModalContextType = {
   isDialog: boolean

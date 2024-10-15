@@ -2,7 +2,7 @@
   "name": "expo-app",
   "version": "1.0.0",
   "buildNumber": "1",
-  "versionCode": "1",
+  "versionCode": 1,
   "main": "index.js",
   "private": true,
   "scripts": {

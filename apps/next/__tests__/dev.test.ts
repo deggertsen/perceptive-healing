@@ -1,6 +1,6 @@
-import { spawn } from 'child_process'
-import { expect, test } from 'vitest'
+import { spawn } from 'node:child_process'
 import path from 'node:path'
+import { expect, test } from 'vitest'
 
 test('Next.js dev server starts', async () => {
   const devProcess = spawn('yarn', ['dev'], {

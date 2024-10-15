@@ -1,5 +1,5 @@
 import { useLink } from 'solito/navigation'
-import { Tabs, Text, YStack } from 'tamagui'
+import { Tabs, Text } from 'tamagui'
 import { useAuthContext } from '../provider/AuthProvider'
 
 export function BottomTabs() {
