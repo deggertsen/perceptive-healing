@@ -10,7 +10,7 @@ export function TopNavBar() {
   })
 
   const notesLink = useLink({
-    href: '/',
+    href: '/notes',
   })
 
   const accountLink = useLink({

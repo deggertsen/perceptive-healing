@@ -10,7 +10,7 @@ export function BottomTabs() {
   })
 
   const notesLink = useLink({
-    href: '/',
+    href: '/notes',
   })
 
   const accountLink = useLink({
