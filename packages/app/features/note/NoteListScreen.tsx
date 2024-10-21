@@ -1,7 +1,7 @@
 import { supabase } from '@my/config'
 import { Button, H1, Paragraph, ScrollView, XStack, YStack, useToastController } from '@my/ui'
 import React, { useEffect, useState } from 'react'
-import { useRouter } from 'solito/router'
+import { useRouter } from 'solito/navigation'
 import { useAuthContext } from '../../provider/AuthProvider'
 import { PageWrapper } from '../../provider/PageWrapper'
 import type { Note } from '../template/types'
@@ -84,9 +84,7 @@ export function NoteListScreen() {
               >
                 <Paragraph>{note.created_at}</Paragraph>
                 <XStack gap="$2">
-                  <Button onPress={() => router.push('/notes/edit', { query: { id: note.id } })}>
-                    Edit
-                  </Button>
+                  <Button onPress={() => router.push(`/notes/edit/${note.id}`)}>Edit</Button>
                   <Button theme="danger" onPress={() => handleDeleteNote(note.id)}>
                     Delete
                   </Button>

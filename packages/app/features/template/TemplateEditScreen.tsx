@@ -13,15 +13,12 @@ import {
 } from '@my/ui'
 import React, { useEffect, useRef, useState } from 'react'
 import { Animated, PanResponder } from 'react-native'
-import { createParam } from 'solito'
-import { useRouter } from 'solito/navigation'
+import { useParams, useRouter } from 'solito/navigation'
 import { useAuthContext } from '../../provider/AuthProvider'
 import { PageWrapper } from '../../provider/PageWrapper'
 import type { Template, TemplateField } from './types'
 
 // Include the Template and TemplateField interfaces here
-
-const { useParams } = createParam<{ id: string }>()
 
 export function TemplateEditScreen() {
   const { user } = useAuthContext()
@@ -29,8 +26,7 @@ export function TemplateEditScreen() {
   const [loading, setLoading] = useState(true)
   const toast = useToastController()
   const router = useRouter()
-  const { params } = useParams()
-  const id = params.id
+  const { id } = useParams()
 
   const [dragging, setDragging] = useState(false)
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null)

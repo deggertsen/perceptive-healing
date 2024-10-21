@@ -83,11 +83,7 @@ export function TemplateManagementScreen() {
               >
                 <Paragraph>{template.name}</Paragraph>
                 <XStack gap="$2">
-                  <Button
-                    onPress={() =>
-                      router.push('/notes/templates/edit', { query: { id: template.id } })
-                    }
-                  >
+                  <Button onPress={() => router.push(`/notes/templates/edit/${template.id}`)}>
                     Edit
                   </Button>
                   <Button theme="danger" onPress={() => handleDeleteTemplate(template.id)}>

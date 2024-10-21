@@ -20,6 +20,7 @@ const plugins = [
     outputCSS: process.env.NODE_ENV === 'production' ? './public/tamagui.css' : null,
     logTimings: true,
     disableExtraction,
+    useReactNativeWebLite: false,
     shouldExtract: (path) => {
       if (path.includes(join('packages', 'app'))) {
         return true
@@ -47,6 +48,7 @@ module.exports = function () {
       'expo-linking',
       'expo-constants',
       'expo-modules-core',
+      'expo-router',
     ],
     experimental: {
       scrollRestoration: true,

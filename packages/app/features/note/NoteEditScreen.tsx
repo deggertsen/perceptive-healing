@@ -13,13 +13,10 @@ import {
   useToastController,
 } from '@my/ui'
 import React, { useEffect, useState } from 'react'
-import { createParam } from 'solito'
-import { useRouter } from 'solito/router'
+import { useParams, useRouter } from 'solito/navigation'
 import { useAuthContext } from '../../provider/AuthProvider'
 import { PageWrapper } from '../../provider/PageWrapper'
 import type { Client, Note, Template } from '../template/types'
-
-const { useParams } = createParam<{ id: string }>()
 
 export function NoteEditScreen() {
   const { user } = useAuthContext()
@@ -31,8 +28,7 @@ export function NoteEditScreen() {
   const [loading, setLoading] = useState(true)
   const toast = useToastController()
   const router = useRouter()
-  const { params } = useParams()
-  const id = params.id
+  const { id } = useParams()
 
   useEffect(() => {
     fetchTemplates()
